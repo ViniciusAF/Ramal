@@ -1,0 +1,74 @@
+<html>
+<body>
+
+<p> TIPOS DE ACESSO </p>
+
+<br>
+<br>
+
+
+<table border = "1">
+
+<tr>
+<td>Inserir/Excluir Tipo de Acesso</td>
+</tr>
+
+<tr>
+<td><form method="post" action ="insereacesso.php">
+<p> Nome do Acesso: <input type="text" name="nomeacesso" maxlength="40" /></p>
+<p> Insere? <select name="acessoinsere">
+            <option value="Ativo">A</option>
+            <option value="Inativo" selected>I</option>
+  </select></p>
+<p> Altera? <select name="acessoaltera">
+            <option value="Ativo">A</option>
+            <option value="Inativo" selected>I</option>
+  </select></p>
+<p> Exclui? <select name="acessoexclui">
+            <option value="Ativo">A</option>
+            <option value="Inativo" selected>I</option>
+  </select></p>
+<p> Pesquisa? <select name="acessopesquisa">
+            <option value="Ativo">A</option>
+            <option value="Inativo" selected>I</option>
+  </select></p>  
+<h5> I = Inativo/Nao, A = Ativo/Sim</h5>
+<p align = "center"><input type="submit" name ="btninserir" value = "Inserir"/>
+
+<input type="submit" name ="btnexcluir" value = "Excluir"/></p>
+</form></td>
+
+</tr>
+
+<tr>
+<td style ="background:black"></td>
+</tr>
+
+<tr>
+<td>Buscar Tipo de Acesso</td>
+</tr>
+
+<tr>
+<td><form method="post" action ="buscaacesso.php">
+<p> Nome: <input type="text" name="buscaacesso" maxlength="40" /></p>
+<p align = "center"><input type="submit" name ="btnbusca" value = "Buscar"/>
+<h6>Deixe em branco para buscar todos os dados</h6></p>
+</form></td>
+</tr>
+
+</table>
+
+<br>
+<br>
+
+
+
+<p><a href ="menu.php">Voltar</a></p></td>
+
+<br>
+<br>
+
+
+
+</body>
+</html>
