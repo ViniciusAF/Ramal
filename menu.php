@@ -14,7 +14,7 @@ if ($res == 'A' or $res == '') {
 $dados = mysql_query("select Nome_usuario, Andar_usuario, Status, Nr_ramal, Descricao, desc_depto
                       from usuario inner join ramal on 
 					  usuario.id_usuario = ramal.id_usuario
-                      inner join departamento on usuario.id_depto = departamento.id_depto order by Nome_usuario;") or die(mysql_error());
+                      inner join departamento on usuario.id_depto = departamento.id_depto order by desc_depto;") or die(mysql_error());
 $total = mysql_num_rows($dados);
 $linhas = mysql_affected_rows();
 
