@@ -7,10 +7,12 @@
                                <?php 
 	                           include "conecta_mysql_ramal.inc";
                                $querybuscadepto = mysql_query("SELECT * from departamento");
+							   
+							   echo "<option value =\"\"></option>";
 	                           echo "<option value =\"todos\">Todos</option>";
 	                           while($vquerybuscadepto = mysql_fetch_assoc($querybuscadepto)) { 
 	                           ?>
-                                        <option value = "<?php echo $vquerybuscadepto['ID_depto'];?>"><?php echo $vquerybuscadepto['Desc_depto'] ?></option>
+                                        <option value = "<?php echo $vquerybuscadepto['Desc_depto'];?>" <?php if ($_POST["comboboxtipoacesso"] == $vquerybuscadepto['Desc_depto']) { echo "selected"; } ?>><?php echo $vquerybuscadepto['Desc_depto']; ?></option>
                                         <?php 
 										} 
 										?>
@@ -22,9 +24,10 @@
 </form>	
 
 <?php
+
 //Verificando se a variavel, no caso o botão, foi inicializado.
 if (isset($_POST["btnbuscar"])){
-	
+
 //Colocando em uma variavel o valor selecionado.
 $coddepto = $_POST['comboboxtipoacesso'];
 
@@ -86,7 +89,7 @@ if( $coddepto == "todos" ){
    $sql_depto = "select Nome_usuario, Andar_usuario, Nr_ramal, Descricao, desc_depto
    from usuario inner join ramal on 
    usuario.id_usuario = ramal.id_usuario
-   inner join departamento on usuario.id_depto = departamento.id_depto where departamento.ID_depto = '".$coddepto."' order by Nome_usuario;";
+   inner join departamento on usuario.id_depto = departamento.id_depto where departamento.desc_depto = '".$coddepto."' order by Nome_usuario;";
    $dados = mysql_query($sql_depto) or die(mysql_error());
    $total = mysql_num_rows($dados);
 
