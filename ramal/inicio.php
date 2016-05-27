@@ -22,31 +22,33 @@
 </form>	
 
 <?php
+//Verificando se a variavel, no caso o botão, foi inicializado.
 if (isset($_POST["btnbuscar"])){
+	
+//Colocando em uma variavel o valor selecionado.
 $coddepto = $_POST['comboboxtipoacesso'];
+
+//Definindo as cores para intercalar na tabela.
 $cor1 = "lightgray";
 $cor2 = "white";
 $i = 2;
+
+//Conexão com o Banco
 include "conecta_mysql_ramal.inc";
 
 
-
+//Condições: Se "todos" for selecionado
 if( $coddepto == "todos" ){
-
-
-
-
-$todos = "select Nome_usuario, Andar_usuario, Nr_ramal, Descricao, desc_depto
-from usuario inner join ramal on 
-usuario.id_usuario = ramal.id_usuario
-inner join departamento on usuario.id_depto = departamento.id_depto order by desc_depto;";
-
-$dadostodos = mysql_query ($todos) or die (mysql_error());
-$total2 = mysql_num_rows($dadostodos);
-
-
-
-        if($total2 > 0) {
+   
+   //Consulta de todos os departamentos
+   $todos = "select Nome_usuario, Andar_usuario, Nr_ramal, Descricao, desc_depto
+   from usuario inner join ramal on 
+   usuario.id_usuario = ramal.id_usuario
+   inner join departamento on usuario.id_depto = departamento.id_depto order by Nome_usuario;";
+   $dadostodos = mysql_query ($todos) or die (mysql_error());
+   $total2 = mysql_num_rows($dadostodos);
+    
+   if($total2 > 0) {
 			
         echo "<table border = '1' width = '1000' align = \"center\">
 			  <tr><td align = \"center\"><strong>RAMAIS PSYCHEMEDICS</strong></td></tr>
@@ -62,81 +64,70 @@ $total2 = mysql_num_rows($dadostodos);
 	
 			  ";
 			  
-    while ($exibe2 = mysql_fetch_assoc($dadostodos)) {
-	  if ($i %2 == 0) {
-	
-		  $cor = $cor1;
-	  }else{
-		  $cor = $cor2;
-	  }
-	  echo "<td style=\"background: " . $cor . ";\">" . $exibe2['Nome_usuario'] . "</td>";
-	  echo "<td style=\"background: " . $cor . ";\">" . $exibe2['Andar_usuario'] . "</td>";	
-	  echo "<td style=\"background: " . $cor . ";\">" . $exibe2['Nr_ramal'] . "</td>";
-	  echo "<td style=\"background: " . $cor . ";\">" . $exibe2['Descricao'] . "</td></tr>";
-	  $i++;
-	
-     }
-     echo "</table>";
-	 }
+        while ($exibe2 = mysql_fetch_assoc($dadostodos)) {
+	       if ($i %2 == 0) {
+		     $cor = $cor1;
+	       }else{
+		     $cor = $cor2;
+	       }
+	        echo "<td style=\"background: " . $cor . ";\">" . $exibe2['Nome_usuario'] . "</td>";
+	        echo "<td style=\"background: " . $cor . ";\">" . $exibe2['Andar_usuario'] . "</td>";	
+	        echo "<td style=\"background: " . $cor . ";\">" . $exibe2['Nr_ramal'] . "</td>";
+	        echo "<td style=\"background: " . $cor . ";\">" . $exibe2['Descricao'] . "</td></tr>";
+	        $i++;
+	       }
+        echo "</table>";
+	}
 
-
+//Caso contrário:
 } else {
 	
-	
-	
-	
-$sql_depto = "select Nome_usuario, Andar_usuario, Nr_ramal, Descricao, desc_depto
-from usuario inner join ramal on 
-usuario.id_usuario = ramal.id_usuario
-inner join departamento on usuario.id_depto = departamento.id_depto where departamento.ID_depto = '".$coddepto."' order by desc_depto;";
+   //Consulta do departamento selecionado
+   $sql_depto = "select Nome_usuario, Andar_usuario, Nr_ramal, Descricao, desc_depto
+   from usuario inner join ramal on 
+   usuario.id_usuario = ramal.id_usuario
+   inner join departamento on usuario.id_depto = departamento.id_depto where departamento.ID_depto = '".$coddepto."' order by Nome_usuario;";
+   $dados = mysql_query($sql_depto) or die(mysql_error());
+   $total = mysql_num_rows($dados);
 
-$dados = mysql_query($sql_depto) or die(mysql_error());
-$total = mysql_num_rows($dados);
-
-
-
-    if($total > 0) {
+   if($total > 0) {
 		
-	$buscadepto = mysql_query("Select desc_depto from departamento where id_depto = '".$coddepto."';");
-    $exibedepto = mysql_fetch_assoc($buscadepto);
-    $depto = $exibedepto['desc_depto'];
+	  $buscadepto = mysql_query("Select desc_depto from departamento where id_depto = '".$coddepto."';");
+      $exibedepto = mysql_fetch_assoc($buscadepto);
+      $depto = $exibedepto['desc_depto'];
 
-	echo "<table border = '1' width = '1000' align = \"center\">
-	<tr>
-	<td align = \"center\"><strong>RAMAIS PSYCHEMEDICS</strong></td>
-	</tr>
-	<tr>
-	<td align = \"center\"><strong>$depto</strong></td>
-	</tr>
-	</table>
+	  echo "<table border = '1' width = '1000' align = \"center\">
+	  <tr>
+	  <td align = \"center\"><strong>RAMAIS PSYCHEMEDICS</strong></td>
+	  </tr>
+	  <tr>
+	  <td align = \"center\"><strong>$depto</strong></td>
+	  </tr>
+	  </table>
 			  
-	<table border = '1' width = '1000' align = \"center\">
-	<tr>
-	<td><strong>Nome:</strong></td>
-	<td><strong>Andar:</strong></td>
-	<td><strong>Ramal:</strong></td>
-	<td><strong>Descricao:</strong></td>
-	</tr>
-	";
-    while ($exibe = mysql_fetch_assoc($dados)) {
-	  if ($i %2 == 0) {
-		  $cor = $cor1;
-	  }else{
-		  $cor = $cor2;
-	  }
-	  echo "<td style=\"background: " . $cor . ";\">" . $exibe['Nome_usuario'] . "</td>";
-	  echo "<td style=\"background: " . $cor . ";\">" . $exibe['Andar_usuario'] . "</td>";
-	  echo "<td style=\"background: " . $cor . ";\">" . $exibe['Nr_ramal'] . "</td>";
-	  echo "<td style=\"background: " . $cor . ";\">" . $exibe['Descricao'] . "</td></tr>";
-	  $i++;
-	
+	  <table border = '1' width = '1000' align = \"center\">
+	  <tr>
+	  <td><strong>Nome:</strong></td>
+	  <td><strong>Andar:</strong></td>
+	  <td><strong>Ramal:</strong></td>
+	  <td><strong>Descricao:</strong></td>
+	  </tr>
+	  ";
+	  
+      while ($exibe = mysql_fetch_assoc($dados)) {
+	    if ($i %2 == 0) {
+		    $cor = $cor1;
+	    }else{
+		    $cor = $cor2;
+	    }
+	    echo "<td style=\"background: " . $cor . ";\">" . $exibe['Nome_usuario'] . "</td>";
+	    echo "<td style=\"background: " . $cor . ";\">" . $exibe['Andar_usuario'] . "</td>";
+	    echo "<td style=\"background: " . $cor . ";\">" . $exibe['Nr_ramal'] . "</td>";
+	    echo "<td style=\"background: " . $cor . ";\">" . $exibe['Descricao'] . "</td></tr>";
+	    $i++;
+	    }
+      echo "</table>";
     }
-    echo "</table>";
-    }
-	
-	
-	
-	
 	
 }
 
