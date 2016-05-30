@@ -1,12 +1,28 @@
 <html>
 <body>
+<head>
+
+
+<style type="text/css">
+  body {
+	font-family: Georgia, "Times New Roman",
+          Times, serif;
+    color: White;
+    background-color: #27408B
+	}
+  </style>
+  
+<title> Ramais Psychemedics </title>
+
+
+</head>
 <form method = "post">
 <table align = "center" border = '1'>
 
-
+<tr><td><img align="center" src="img/psy.png"/></td></tr>
 
 <tr>
-<td><label>Nome:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<td><label>Nome:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <input type="text" size = '17' name="nomeusuariodigitado" maxlength="60" value = "<?php include "conecta_mysql_ramal.inc"; $nomedigitado = $_POST["nomeusuariodigitado"]; echo $nomedigitado; ?>" /></td>
 </tr>
 
@@ -15,7 +31,7 @@
 <tr>
 <td><label>Departamento:</label>&nbsp;&nbsp;<select name="comboboxtipoacesso">
                                <?php 
-	                           include "conecta_mysql_ramal.inc";
+	                           
                                $querybuscadepto = mysql_query("SELECT * from departamento");
 							   
 							   echo "<option value =\"\"></option>";
@@ -33,7 +49,7 @@
 </tr>
 
 <tr>
-<td><label>Ramal:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<td><label>Ramal:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <input type="text" size = '4' name="numramal" maxlength="4" value = "<?php $ramaldigitado = $_POST["numramal"]; echo $ramaldigitado; ?>" /></td>
 </tr>
 
@@ -44,8 +60,6 @@
 </form>	
 
 <?php
-var_dump($nomedigitado);
-var_dump($ramaldigitado);
 
 
 //Verificando se a variavel, no caso o botão, foi inicializado.
@@ -54,11 +68,11 @@ if (isset($_POST["btnbuscar"])){
 //Colocando em uma variavel o valor selecionado.
 $coddepto = $_POST['comboboxtipoacesso'];
 $ramal = $_POST["numramal"];
-$nome = $_POST["nomeusuario"];
+$nome = $_POST["nomeusuariodigitado"];
 
 //Definindo as cores para intercalar na tabela.
-$cor1 = "lightgray";
-$cor2 = "white";
+$cor1 = "#1E90FF";
+$cor2 = "#4682B4";
 $i = 2;
 
 //Conexão com o Banco
