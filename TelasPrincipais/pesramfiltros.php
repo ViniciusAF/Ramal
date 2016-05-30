@@ -10,6 +10,37 @@
     color: White;
     background-color: #27408B
 	}
+.css_btn_class {
+	font-size:12px;
+	font-family:Arial;
+	font-weight:bold;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border-radius:8px;
+	border:1px solid #3866a3;
+	padding:9px 18px;
+	text-decoration:none;
+	background:-moz-linear-gradient( center top, #63b8ee 48%, #468ccf 57% );
+	background:-ms-linear-gradient( top, #63b8ee 48%, #468ccf 57% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#63b8ee', endColorstr='#468ccf');
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(48%, #63b8ee), color-stop(57%, #468ccf) );
+	background-color:#63b8ee;
+	color:#14396a;
+	display:inline-block;
+	text-shadow:1px 1px 0px #7cacde;
+ 	-webkit-box-shadow:inset 1px 1px 0px 0px #bee2f9;
+ 	-moz-box-shadow:inset 1px 1px 0px 0px #bee2f9;
+ 	box-shadow:inset 1px 1px 0px 0px #bee2f9;
+}.css_btn_class:hover {
+	background:-moz-linear-gradient( center top, #468ccf 48%, #63b8ee 57% );
+	background:-ms-linear-gradient( top, #468ccf 48%, #63b8ee 57% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#468ccf', endColorstr='#63b8ee');
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(48%, #468ccf), color-stop(57%, #63b8ee) );
+	background-color:#468ccf;
+}.css_btn_class:active {
+	position:relative;
+	top:1px;
+}
   </style>
   
 <title> Ramais Psychemedics </title>
@@ -54,7 +85,7 @@
 </tr>
 
 <tr>
-<td><p align = "center"><input type="submit" name ="btnbuscar" value = "Buscar"/></p></td>
+<td><p align = "center"><input type="submit" name ="btnbuscar" value = "Buscar" class="css_btn_class"/></p></td>
 </tr>
 </table>
 </form>	
