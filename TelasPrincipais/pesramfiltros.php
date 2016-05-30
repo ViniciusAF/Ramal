@@ -1,9 +1,19 @@
 <html>
 <body>
 <form method = "post">
-<table align = "center">
+<table align = "center" border = '1'>
+
+
+
 <tr>
-<td><p>Buscar por departamento:<select name="comboboxtipoacesso">
+<td><label>Nome:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="text" size = '17' name="nomeusuariodigitado" maxlength="60" value = "<?php include "conecta_mysql_ramal.inc"; $nomedigitado = $_POST["nomeusuariodigitado"]; echo $nomedigitado; ?>" /></td>
+</tr>
+
+
+
+<tr>
+<td><label>Departamento:</label>&nbsp;&nbsp;<select name="comboboxtipoacesso">
                                <?php 
 	                           include "conecta_mysql_ramal.inc";
                                $querybuscadepto = mysql_query("SELECT * from departamento");
@@ -12,24 +22,39 @@
 	                           echo "<option value =\"todos\">Todos</option>";
 	                           while($vquerybuscadepto = mysql_fetch_assoc($querybuscadepto)) { 
 	                           ?>
-                                        <option value = "<?php echo $vquerybuscadepto['Desc_depto'];?>" <?php if ($_POST["comboboxtipoacesso"] == $vquerybuscadepto['Desc_depto']) { echo "selected"; } ?>><?php echo $vquerybuscadepto['Desc_depto']; ?></option>
+                                        <option value = "<?php echo $vquerybuscadepto['Desc_depto'];?>" 
+										                 <?php if ($_POST["comboboxtipoacesso"] == $vquerybuscadepto['Desc_depto']) { echo "selected"; } ?>>
+														 <?php echo $vquerybuscadepto['Desc_depto']; ?>
+														 </option>
                                         <?php 
 										} 
 										?>
-	                           </select></td>
-	
+	                </select></td>
+</tr>
+
+<tr>
+<td><label>Ramal:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="text" size = '4' name="numramal" maxlength="4" value = "<?php $ramaldigitado = $_POST["numramal"]; echo $ramaldigitado; ?>" /></td>
+</tr>
+
+<tr>
 <td><p align = "center"><input type="submit" name ="btnbuscar" value = "Buscar"/></p></td>
 </tr>
 </table>
 </form>	
 
 <?php
+var_dump($nomedigitado);
+var_dump($ramaldigitado);
+
 
 //Verificando se a variavel, no caso o botão, foi inicializado.
 if (isset($_POST["btnbuscar"])){
 
 //Colocando em uma variavel o valor selecionado.
 $coddepto = $_POST['comboboxtipoacesso'];
+$ramal = $_POST["numramal"];
+$nome = $_POST["nomeusuario"];
 
 //Definindo as cores para intercalar na tabela.
 $cor1 = "lightgray";
@@ -41,7 +66,7 @@ include "conecta_mysql_ramal.inc";
 
 
 //Condições: Se "todos" for selecionado
-if( $coddepto == "todos" ){
+if($coddepto == "todos" or $coddepto == "" and $ramal == "" and $nome == ""){
    
    //Consulta de todos os departamentos
    $todos = "select Nome_usuario, Andar_usuario, Nr_ramal, Descricao, desc_depto
@@ -55,7 +80,7 @@ if( $coddepto == "todos" ){
 			
         echo "<table border = '1' width = '1000' align = \"center\">
 			  <tr><td align = \"center\"><strong>RAMAIS PSYCHEMEDICS</strong></td></tr>
-			  <tr><td align = \"center\"><strong>Todos</strong></td></tr>
+			  
 			  </table>
 			  
 			  <table border = '1' width = '1000' align = \"center\">
@@ -85,27 +110,25 @@ if( $coddepto == "todos" ){
 //Caso contrário:
 } else {
 	
-   //Consulta do departamento selecionado
+   //Consulta do departamento e ramal selecionado
    $sql_depto = "select Nome_usuario, Andar_usuario, Nr_ramal, Descricao, desc_depto
    from usuario inner join ramal on 
    usuario.id_usuario = ramal.id_usuario
-   inner join departamento on usuario.id_depto = departamento.id_depto where departamento.desc_depto = '".$coddepto."' order by Nome_usuario;";
+   inner join departamento on usuario.id_depto = departamento.id_depto
+   where departamento.desc_depto like '%".$coddepto."%' 
+   and
+   Nome_usuario like '%".$nome."%'
+   and
+   Nr_ramal like '%".$ramal."%' order by Nome_usuario ;";
    $dados = mysql_query($sql_depto) or die(mysql_error());
    $total = mysql_num_rows($dados);
-
-   if($total > 0) {
-		
-	  $buscadepto = mysql_query("Select desc_depto from departamento where id_depto = '".$coddepto."';");
-      $exibedepto = mysql_fetch_assoc($buscadepto);
-      $depto = $exibedepto['desc_depto'];
-
+   
+   if($total > 0 ) { 
 	  echo "<table border = '1' width = '1000' align = \"center\">
 	  <tr>
 	  <td align = \"center\"><strong>RAMAIS PSYCHEMEDICS</strong></td>
 	  </tr>
-	  <tr>
-	  <td align = \"center\"><strong>$depto</strong></td>
-	  </tr>
+	
 	  </table>
 			  
 	  <table border = '1' width = '1000' align = \"center\">
@@ -131,9 +154,8 @@ if( $coddepto == "todos" ){
 	    }
       echo "</table>";
     }
-	
 }
-
+   
 }
 
 
