@@ -7,8 +7,8 @@
   body {
 	font-family: Georgia, "Times New Roman",
           Times, serif;
-    color: White;
-    background-color: #27408B
+    color: Black;
+    background-color: white
 	}
 .css_btn_class {
 	font-size:12px;
@@ -102,8 +102,8 @@ $ramal = $_POST["numramal"];
 $nome = $_POST["nomeusuariodigitado"];
 
 //Definindo as cores para intercalar na tabela.
-$cor1 = "#1E90FF";
-$cor2 = "#4682B4";
+$cor1 = "#BFEFFF";
+$cor2 = "#9AC0CD";
 $i = 2;
 
 //Conexão com o Banco
@@ -160,7 +160,7 @@ if($coddepto == "todos" or $coddepto == "" and $ramal == "" and $nome == ""){
    from usuario inner join ramal on 
    usuario.id_usuario = ramal.id_usuario
    inner join departamento on usuario.id_depto = departamento.id_depto
-   where departamento.desc_depto like '%".$coddepto."%' 
+   where departamento.desc_depto like '".$coddepto."%' 
    and
    Nome_usuario like '%".$nome."%'
    and
