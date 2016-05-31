@@ -85,7 +85,8 @@
 </tr>
 
 <tr>
-<td><p align = "center"><input type="submit" name ="btnbuscar" value = "Buscar" class="css_btn_class"/></p></td>
+<td><p align = "center"><input type="submit" name ="btnbuscar" value = "Buscar" class="css_btn_class"/>
+<input type="reset" name ="btnlimpar" value = "Limpar" class="css_btn_class"/></p></td>
 </tr>
 </table>
 </form>	
